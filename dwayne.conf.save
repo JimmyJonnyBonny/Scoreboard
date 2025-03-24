@@ -1,0 +1,65 @@
+event = "ATLANTIS"
+verbose = true
+timezone = "America/New_York"
+injectapikey = "superSecretKey1!"
+port = 8080
+
+delay = 20
+jitter = 3
+timeout = 5
+servicepoints = 10
+slathreshold = 5
+slapoints = 10
+
+easypcr = true
+nopasswords = false
+disableinfopage = false
+persists = false
+
+[[admin]]
+name = "admin"
+pw = "adminpass"
+
+[[team]]
+ip = "1"
+pw = "Team1pw"
+
+[[team]]
+ip = "2"
+pw = "Team2pw"
+
+# Minimal Creds
+[[creds]]
+name = "users"
+usernames = ["deimos-u", "eris-u"]
+defaultpw = "root"
+
+# === Box 1: DEIMOS ===
+[[box]]
+name = "deimos"
+ip = "10.147.18.74"
+
+    [[box.ssh]]
+    credlists = ["users"]
+
+    [[box.ftp]]
+    port = 21
+    anonymous = true
+
+# === Box 2: ERIS ===
+[[box]]
+name = "eris"
+ip = "10.147.18.162"
+
+    [[box.dns]]
+    port = 4000
+    [[box.dns.record]]
+    kind = "A"
+    domain = "example.local"
+    answer = ["192.168.1.1"]
+
+    [[box.web]]
+    display = "website"
+    [[box.web.url]]
+    path = "/"
+    regex = ".*homepage loaded successfully.*"

@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Metadata and resources
-    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- Metadata and resources -->
     <title>{{ .event }} {{ .title }}</title>
     <link rel="stylesheet" href="/assets/pico.min.css">
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="icon" type="image/ico" href="/assets/favicon.ico"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Matrix Background -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Navigation Bar -->
     <nav class="container">
         <input class="menu-btn" type="checkbox" id="menu-btn" />
         <label class="menu-icon" for="menu-btn">
@@ -66,4 +81,46 @@
             {{- end }}
         </ul>
     </nav>
-<hr>
+    <hr>
+
+    <!-- Matrix Animation Script -->
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = "アァイィウエカキクケコサシスセソタチツテトナニヌネノ";
+        const fontSize = 16;
+        const columns = Math.floor(canvas.width / fontSize);
+
+        let drops = Array(columns).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0ff"; // neon cyan
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height || Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

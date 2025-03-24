@@ -116,6 +116,9 @@ sup a {
 
 p {
     margin-top: 0.8rem;
+    color: #00ffff;
+    text-shadow: 0 0 2px #00ffff, 0 0 4px #00ffff;
+    font-weight: bold;
 }
 
 a, summary, [role=link] {
@@ -136,26 +139,43 @@ hr {
 
 h2, h3 {
     text-align: center;
+    color: #00ffff;
+    text-shadow: 0 0 2px #00ffff, 0 0 4px #00ffff;
+    font-weight: bold;
 }
 
 h3 {
     font-weight: normal;
 }
 
-.nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+
+.nav a strong {
+    color: #00ffff !important;
+    text-shadow: 0 0 6px #00ffff, 0 0 12px #00ffff;
 }
 
-.nav a {
-    flex-grow: 1;
+
+@keyframes glow {
+  0%   { text-shadow: 0 0 1px #00ffff, 0 0 2px #00ffff; }
+  50%  { text-shadow: 0 0 2px #00ffff, 0 0 3px #00ffff; }
+  100% { text-shadow: 0 0 1px #00ffff, 0 0 2px #00ffff; }
+}
+
+nav.container a,
+nav.container a * {
+  color: #00ffff !important;
+  text-shadow: 0 0 1px #00ffff, 0 0 2px #00ffff;
+  animation: glow 3s ease-in-out infinite;
+  font-weight: bold;
 }
 
 .nav div {
 	flex-grow: 1;
 	display: block;
 	text-align: right;
+        color: #00ffff !important;
+        text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
+        font-weight: bold;
 }
 
 .nav > div > a {
@@ -171,15 +191,27 @@ hr {
 –––––––––––––––––––––––––––––––––––––––––– */
 
 table {
-    margin: 0 auto 1rem auto;
-    text-align: center;
-    border-spacing: 0;
-    border-collapse: 0;
-    background-image: url("/assets/logo.png");
-    background-size: 8rem;
-    justify-content: center;
-    display: table;
-    width: 100%;
+    position: relative;
+    background-image: url("/assets/IMG_3102.webp");
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+}
+
+table::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+table td, table th {
+    position: relative;
+    z-index: 1;
+}
+
+
 }
 
 .graph {
@@ -237,6 +269,13 @@ th.boxname {
     width: 2em;
 }
 
+.uptime td {
+    color: #ffff66 !important;
+    text-shadow: 0 0 4px #ffff66;
+    font-weight: bold;
+}
+
+
 td a {
     padding: 0.2em;
 }
@@ -246,19 +285,25 @@ th {
 }
 
 .checkname p {
-	min-width: max-content;
-	white-space: nowrap;
+    min-width: max-content;
+    white-space: nowrap;
     text-align: right;
-	transform-origin: bottom right;
+    transform-origin: bottom right;
     transform: rotate(30deg);
     margin-top: 0;
     margin-bottom: 0;
+
+    color: #ffffff !important;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
 }
 
 .checkname div {
     display: flex;
     justify-content: flex-end;
     width: 50%;
+
+    color: #00ffff !important;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
 }
 
 .teamname div {
@@ -266,6 +311,9 @@ th {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+
+    color: #00ffff !important;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
 }
 
 th.teamname {
@@ -278,9 +326,13 @@ td.teamname div > * {
     width: max-content;
 }
 
-table:not(.checks,.uptime) :is(th,td){
+table:not(.checks,.uptime) :is(th, td) {
     border-right: 3px solid var(--darkgray);
     border-left: 3px solid var(--darkgray);
+
+    color: #ffff66 !important;
+    text-shadow: 0 0 5px #ffff66;
+    font-weight: bold;
 }
 
 td{
@@ -400,6 +452,8 @@ form input[type=submit] {
 –––––––––––––––––––––––––––––––––––––––––– */
 html {
     display: block;
+    background-color: #121212; /* rich charcoal gray */
+
 }
 
 /* nav
@@ -446,4 +500,55 @@ nav :is(.menu-btn, .menu-icon) {
         & .menu-btn ~ .menu {
             display: none;
 	}
+}
+/* Glowing ATLANTIS Logo */
+nav .title, h1, h2 {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+}
+
+/* Glowing Team Name Cells */
+td.teamname {
+    background-color: #111;
+    color: #00ffcc;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ccff;
+}
+
+/* Animated Progress Bar */
+progress::-webkit-progress-value {
+    background: linear-gradient(270deg, #00ffcc, #00ccff, #00ffcc);
+    background-size: 400% 400%;
+    animation: pulseBar 3s ease infinite;
+}
+
+@keyframes pulseBar {
+    0% { background-position: 0% 50%; }
+    30% { background-position: 100% 50%; }
+    70% { background-position: 0% 50%; }
+}
+
+@keyframes glow {
+  0%   { text-shadow: 0 0 1px #00ffff, 0 0 2px #00ffff; }
+  50%  { text-shadow: 0 0 2px #00ffff, 0 0 3px #00ffff; }
+  100% { text-shadow: 0 0 1px #00ffff, 0 0 2px #00ffff; }
+}
+
+nav.container a,
+nav.container a * {
+  color: #00ffff !important;
+  text-shadow: 0 0 1px #00ffff, 0 0 2px #00ffff;
+  animation: glow 3s ease-in-out infinite;
+  font-weight: bold;
+}
+canvas#matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
 }
